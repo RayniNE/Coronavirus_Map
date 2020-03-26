@@ -1,12 +1,15 @@
 
 .leaflet-container{
-    width: 60%;
-    height: 70vh;
+    width: 95%;
+    height: 80vh;
+    margin: 0 auto;
 }
 
 .container{
-    
-    display: flex;
+    height: 90%;
     justify-content: center;
     align-items: center;
+    padding: 30px;
+    margin: 0 auto;
+    width: 60%;
 }
