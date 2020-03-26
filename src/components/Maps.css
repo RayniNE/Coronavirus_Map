@@ -1,0 +1,12 @@
+
+.leaflet-container{
+    width: 60%;
+    height: 70vh;
+}
+
+.container{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
