@@ -4,8 +4,15 @@ import Maps from './components/Maps';
 import Login from './components/login/Login';
 
 function App() {
-  
+  //State del usuario. Para saber si el usuario esta logueado y almacenarlo.
   const [user, setUser] = useState({user: null});
+
+  const [location, setLocation] = useState({newLocation: null});
+
+  const handleLocation = e => {
+    setLocation({newLocation: e.latlng});
+  }
+
 
 
   useEffect(() => {
@@ -17,6 +24,17 @@ function App() {
           }
       })
   }, [user])
+
+    const [datos, agregarDatos] = useState({});
+
+    const consultarAPI = async () => {
+    const api = await fetch('https://covid19.mathdro.id/api/confirmed');
+    const info = await api.json();
+    console.log(info)
+    agregarDatos({datos});
+    console.log(datos);
+  };
+
 
 
   const handleAuth = () => {
@@ -41,7 +59,13 @@ function App() {
         handleLogOut={handleLogOut}
         user={user.user}
         />
-        <Maps/>
+        <Maps
+        handleLocation={handleLocation}
+        location={location}
+        user={user.user}
+        consultarAPI={consultarAPI}
+        datos={datos}
+        />
       </div>
 
       {/* <Login/> */}
