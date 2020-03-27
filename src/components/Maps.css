@@ -13,3 +13,9 @@
     margin: 0 auto;
     width: 60%;
 }
+
+.button{
+    position: absolute;
+    top: 105px;
+    left: 50px;
+}

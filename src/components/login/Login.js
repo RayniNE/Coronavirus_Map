@@ -6,7 +6,7 @@ const Login = ({handleAuth, handleLogOut, user}) => {
     
     return (
         <Navbar bg="dark" variant="dark">
-            <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
+            <Navbar.Brand href="#home">Mapa del coronavirus</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
                <Navbar.Text>

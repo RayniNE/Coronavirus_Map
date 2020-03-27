@@ -1,11 +1,11 @@
 import React, {useState, useEffect, Fragment} from 'react';
 import L from 'leaflet';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import firebase from 'firebase';
 import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
 import './Maps.css';
 
-const Maps = ({handleLocation, user, location, datos, consultarAPI}) => {
+const Maps = ({handleLocation, user, location, datos, navCurrentLocation, currentLocation}) => {
 
   let localizaciones = JSON.parse(localStorage.getItem('locations'));
 
@@ -31,6 +31,7 @@ const Maps = ({handleLocation, user, location, datos, consultarAPI}) => {
   }
 
 
+
   const saveLocation = () => {
 
     if(location)
@@ -47,22 +48,18 @@ const Maps = ({handleLocation, user, location, datos, consultarAPI}) => {
       saveLocalizacion([...localizacion, data]);
 
       console.log(datos);
-    }
-    else{
-      alert('Por favor, haga click en el mapa para conseguir la localización y luego dele click a agregar')
-    }     
+    }   
 
   }
 
     return (
         <div className="container">
           {user ?
-            <Fragment> <h3 className="text-center"> Haga click en el mapa </h3>  </Fragment>
+            <Fragment> <Alert variant="primary"> Haga click en el mapa y luego presione el boton de guardar </Alert> </Fragment>
               :
-              <Fragment> <h3>Por favor, loguese con su cuenta de google</h3></Fragment>
+              <Fragment> <Alert variant="primary"> Por favor, loguese con su cuenta de google </Alert> </Fragment>
           }
-            
-             <Map onClick={handleLocation} center={[18.547554, -69.915224]} zoom={5}>
+             <Map onClick={handleLocation} center={[currentLocation.lat, currentLocation.lng]} zoom={5}> 
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -83,8 +80,12 @@ const Maps = ({handleLocation, user, location, datos, consultarAPI}) => {
              <Fragment> <p></p> </Fragment>
 
               }
-
-              <Button onClick={consultarAPI}>Probar API</Button>
+              {user ?
+              <Button onClick={navCurrentLocation} className="button">Localizarme</Button>
+              :
+              <p></p>
+              }
+              
         </div>
       );
 }
