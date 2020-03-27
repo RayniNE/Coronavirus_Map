@@ -64,26 +64,37 @@ const Maps = ({handleLocation, user, location, datos, navCurrentLocation, curren
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
              />
-             {location.newLocation && <Marker position={location.newLocation}>
+             {location.newLocation &&
+              <Marker position={location.newLocation}>
                <Popup position={location.setLocation}>
                <Fragment> <pre>Lat: {location.newLocation.lat}  Lng: {location.newLocation.lng} </pre> </Fragment>
-               </Popup>
+               </Popup>    
+             </Marker>
+              }
 
-               
-             </Marker> }
+              {
+                isInfo &&
+                localizaciones.map((local, i) => {
+                  return <Marker position={[local.lat, local.lng]}>
+                    <Popup position={saveLocalizacion}>
+                      <pre>Casos de coronavirus</pre>
+                       </Popup>
+                  </Marker>
+                })
+              }
+
              </Map>
              <br></br>
              { isInfo
-             ? 
-              <Fragment> <Button onClick={saveLocation} className="text-center"> Agregar localización </Button>  </Fragment>
-              :
-             <Fragment> <p></p> </Fragment>
+             &&
+              <Fragment> <Button onClick={saveLocation} className="text-center"> Agregar localización </Button> 
+
+               </Fragment>
 
               }
-              {user ?
+              {user &&
               <Button onClick={navCurrentLocation} className="button">Localizarme</Button>
-              :
-              <p></p>
+
               }
               
         </div>
