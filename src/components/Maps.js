@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Button, Alert } from "react-bootstrap";
 import firebase from "firebase";
-import { Map, TileLayer, Marker, Popup, Circle} from "react-leaflet";
+import { Map, TileLayer, Marker, Popup} from "react-leaflet";
 import { Icon } from 'leaflet';
 import "./Maps.css";
 
@@ -66,6 +66,9 @@ const Maps = ({
 
   return (
     <div className="container">
+            <Alert variant="danger">
+          Aviso importante, solo se muestran un total de 300 casos en el mapa, para ayudar al rendimiento
+      </Alert>
       {user ? (
         <Fragment>
           {" "}
@@ -117,9 +120,9 @@ const Maps = ({
         }
 
         {
-          coronavirus.slice(0, 300).map(corona => {
+          coronavirus.slice(0, 300).map((corona, i) => {
             return (
-              <Marker position={[corona.lat, corona.long]} icon={myIcon} >
+              <Marker position={[corona.lat, corona.long]} icon={myIcon} key={i} >
                 <Popup position={setCoronavirus}>
                   <Fragment>
                     <p>
@@ -149,7 +152,7 @@ const Maps = ({
             );
           })}
       </Map>
-      <br></br>
+
       {isInfo && (
         <Fragment>
           {" "}
