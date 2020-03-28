@@ -18,10 +18,19 @@ const GlobalStats = () => {
 
   return (
     <div className="stats-container">
+      <div className="total_cases"> 
         <h3>Casos totales: {globalStats.total_cases}</h3>
+        </div>
+        <div className="total_recovered">
         <h3>Casos recuperados: {globalStats.total_recovered}</h3>
+        </div>
+        <div className="active_cases">
         <h3>Casos activos: {globalStats.total_unresolved}</h3>
+        </div>
+        <div className="total_deaths">
         <h3>Muertes: {globalStats.total_deaths}</h3>
+        </div>
+        
     </div>
   );
 };

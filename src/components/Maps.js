@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { Button, Alert } from "react-bootstrap";
 import firebase from "firebase";
 import { Map, TileLayer, Marker, Popup} from "react-leaflet";
+
 import { Icon } from 'leaflet';
 import "./Maps.css";
 
@@ -86,7 +87,7 @@ const Maps = ({
           </Alert>{" "}
         </Fragment>
       )}
-      <Map
+      <Map className="markercluster-map"
         onClick={handleLocation}
         center={[currentLocation.lat, currentLocation.lng]}
         zoom={currentLocation.zoom}
@@ -112,16 +113,19 @@ const Maps = ({
         {
           user
           &&
+
           <Marker position={[lat, lng]} zoom={zoom}>
             <Popup position={setCurrentLocation}>
               <pre>Tu localización</pre>
             </Popup>  
           </Marker>
+
         }
 
         {
           coronavirus.slice(0, 300).map((corona, i) => {
             return (
+
               <Marker position={[corona.lat, corona.long]} icon={myIcon} key={i} >
                 <Popup position={setCoronavirus}>
                   <Fragment>
@@ -137,18 +141,21 @@ const Maps = ({
                 </Popup>
                 
               </Marker>
+
             );
           })}
 
         {isInfo &&
           localizaciones.map((local, i) => {
             return (
+
               <Marker position={[local.lat, local.lng]} icon={myIcon} key={i}>
                 <Popup position={saveLocalizacion}>
                   <pre>Casos de coronavirus</pre>
                 </Popup>
 
               </Marker>
+
             );
           })}
       </Map>
