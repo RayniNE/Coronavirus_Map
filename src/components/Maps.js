@@ -1,14 +1,15 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Button, Alert } from "react-bootstrap";
 import firebase from "firebase";
-import { Map, TileLayer, Marker, Popup,} from "react-leaflet";
+import { Map, TileLayer, Marker, Popup, Circle} from "react-leaflet";
 import { Icon } from 'leaflet';
 import "./Maps.css";
 
 const myIcon = new Icon({
-  iconUrl: '/marker.svg',
-  iconSize: [50, 50]
+  iconUrl: '/brote.svg',
+  iconSize: [25, 25]
 })
+
 
 
 
@@ -25,6 +26,7 @@ const Maps = ({
 }) => {
   let localizaciones = JSON.parse(localStorage.getItem("locations"));
   
+  const {lat, lng, zoom} = currentLocation;
  
 
   if (!localizaciones) {
@@ -105,9 +107,19 @@ const Maps = ({
         )}
 
         {
-          coronavirus.slice(0, 250).map(corona => {
+          user
+          &&
+          <Marker position={[lat, lng]} zoom={zoom}>
+            <Popup position={setCurrentLocation}>
+              <pre>Tu localización</pre>
+            </Popup>  
+          </Marker>
+        }
+
+        {
+          coronavirus.slice(0, 300).map(corona => {
             return (
-              <Marker position={[corona.lat, corona.long]} >
+              <Marker position={[corona.lat, corona.long]} icon={myIcon} >
                 <Popup position={setCoronavirus}>
                   <Fragment>
                     <p>
@@ -120,6 +132,7 @@ const Maps = ({
                     </p>
                   </Fragment>
                 </Popup>
+                
               </Marker>
             );
           })}
@@ -127,10 +140,11 @@ const Maps = ({
         {isInfo &&
           localizaciones.map((local, i) => {
             return (
-              <Marker position={[local.lat, local.lng]} icon={myIcon}>
+              <Marker position={[local.lat, local.lng]} icon={myIcon} key={i}>
                 <Popup position={saveLocalizacion}>
                   <pre>Casos de coronavirus</pre>
                 </Popup>
+
               </Marker>
             );
           })}
@@ -144,11 +158,6 @@ const Maps = ({
             Agregar localización{" "}
           </Button>
         </Fragment>
-      )}
-      {user && (
-        <Button onClick={navCurrentLocation} className="button">
-          Localizarme
-        </Button>
       )}
     </div>
   );

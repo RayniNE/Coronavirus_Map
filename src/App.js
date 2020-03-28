@@ -39,7 +39,7 @@ function App() {
       setCurrentLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-        zoom: 7
+        zoom: 10
       });
     });
   };
@@ -63,6 +63,7 @@ function App() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         setUser({ user: user });
+        navCurrentLocation();
       } else {
         setUser({ user: null });
       }
