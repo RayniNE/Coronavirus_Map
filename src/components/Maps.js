@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Button, Alert } from "react-bootstrap";
 import firebase from "firebase";
-import { Map, TileLayer, Marker, Popup} from "react-leaflet";
+import { Map, TileLayer, Marker, Popup, Circle} from "react-leaflet";
 
 import { Icon } from 'leaflet';
 import "./Maps.css";
@@ -65,17 +65,21 @@ const Maps = ({
     }
   };
 
+
+
+
+
   return (
     <div className="container">
             <Alert variant="danger">
-          Aviso importante, solo se muestran un total de 300 casos en el mapa, para ayudar al rendimiento
+          Aviso importante, solo se muestran un total de 1500 casos en el mapa, para ayudar al rendimiento de la página.
       </Alert>
       {user ? (
         <Fragment>
           {" "}
           <Alert variant="primary">
             {" "}
-            Haga click en el mapa y luego presione el boton de guardar{" "}
+            Haga click en el mapa y luego presione el boton de guardar.{" "}
           </Alert>{" "}
         </Fragment>
       ) : (
@@ -83,7 +87,7 @@ const Maps = ({
           {" "}
           <Alert variant="primary">
             {" "}
-            Por favor, loguese con su cuenta de google{" "}
+            Por favor, loguese con su cuenta de google para marcar un nuevo caso.{" "}
           </Alert>{" "}
         </Fragment>
       )}
@@ -123,9 +127,14 @@ const Maps = ({
         }
 
         {
-          coronavirus.slice(0, 300).map((corona, i) => {
+          coronavirus.slice(0, 1500).map((corona, i) => {
+        
+            if(corona.lat !== null && corona.long !== null){
+
+            
             return (
 
+                
               <Marker position={[corona.lat, corona.long]} icon={myIcon} key={i} >
                 <Popup position={setCoronavirus}>
                   <Fragment>
@@ -143,7 +152,11 @@ const Maps = ({
               </Marker>
 
             );
-          })}
+          }
+          else{
+            return ;
+          }
+          }) }
 
         {isInfo &&
           localizaciones.map((local, i) => {

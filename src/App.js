@@ -21,16 +21,17 @@ function App() {
   //Conseguir data.
   const [coronavirus, setCoronavirus] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("https://covid19.mathdro.id/api/confirmed")
-      .then(res => {
-       // console.log(res);
-        setCoronavirus(res.data);
-      })
-      .catch(err => console.log(err));
-  }, []);
 
+  useEffect(() => {
+    const consultarApi = async () => {
+      const resultado = await axios.get("https://covid19.mathdro.id/api/confirmed")
+      console.log(resultado.data.slice(0 - 200));
+      setCoronavirus(resultado.data);
+
+    } 
+    consultarApi();
+    console.log(coronavirus);
+  }, []);
 
 
 
