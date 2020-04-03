@@ -7,7 +7,7 @@ const GlobalStats = () => {
 
   useEffect(() => {
     axios
-      .get("https://thevirustracker.com/free-api?global=stats")
+      .get("https://api.thevirustracker.com/free-api?global=stats")
       .then(res => {
        console.log(res.data.results[0]);
        setGlobalStats(res.data.results[0]);
